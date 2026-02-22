@@ -52,8 +52,37 @@ body {
 .hero-card {
   position: relative;
   overflow: hidden;
+
+  max-width: 820px;
+  margin: 0 auto 60px auto;
+  padding: 50px 40px;
+  border-radius: 10px;
+
+  /* Minecraft glass base */
+  background:
+    linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0.05)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.06) 0px,
+      rgba(255,255,255,0.06) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.06) 0px,
+      rgba(255,255,255,0.06) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+
+  border: 2px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.6);
 }
 
+/* Animated diagonal shine */
 .hero-card::before {
   content: "";
   position: absolute;
@@ -61,28 +90,27 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
+
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,0.25) 0%,
-    rgba(255,255,255,0.08) 20%,
-    rgba(255,255,255,0.03) 35%,
-    transparent 50%
+    rgba(255,255,255,0.18) 0%,
+    rgba(255,255,255,0.08) 15%,
+    transparent 35%
   );
-  transform: rotate(0deg);
+
   pointer-events: none;
 
-  animation: shineMove 8s ease-in-out infinite alternate;
+  animation: shineMove 3s ease-in-out infinite alternate;
 }
 
 @keyframes shineMove {
   0% {
-    transform: translate(-10%, -10%) rotate(0deg);
+    transform: translate(-8%, -8%);
   }
   100% {
-    transform: translate(10%, 10%) rotate(0deg);
+    transform: translate(8%, 8%);
   }
 }
-
 /*/gtau guna apa ga*/
 .container {
   position: relative;
