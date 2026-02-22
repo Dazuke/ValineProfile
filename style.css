@@ -208,14 +208,16 @@ body::before {
 }
 
 /* FIX CENTER POSITION */
+html, body {
+  height: 100%;
+}
+
 body {
   display: flex;
   justify-content: center;
-  align-items: center; /* tambahkan ini */
-  min-height: 100vh;   /* supaya full tinggi layar */
+  align-items: center;
 }
 
 .container {
-  margin: auto;        /* paksa tetap di tengah */
+  margin: auto;
 }
-
