@@ -1,37 +1,35 @@
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let particles = [];
+let particles=[];
 
-for (let i = 0; i < 60; i++) {
+for(let i=0;i<60;i++){
   particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2,
-    speedY: Math.random() * 0.5 + 0.2
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*2,
+    speedY:Math.random()*0.5+0.2
   });
 }
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "rgba(255, 150, 200, 0.3)";
-  particles.forEach(p => {
-    p.y -= p.speedY;
-    if (p.y < 0) p.y = canvas.height;
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(255,150,200,0.3)";
+  particles.forEach(p=>{
+    p.y-=p.speedY;
+    if(p.y<0)p.y=canvas.height;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
     ctx.fill();
   });
-
   requestAnimationFrame(animate);
 }
 
 animate();
 
-function go(link) {
-  window.open(link, "_blank");
+function go(link){
+  window.open(link,"_blank");
 }
