@@ -1,54 +1,37 @@
-function go(link){
-window.open(link,"_blank");
-}
-
-/* PARTICLE EFFECT */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particlesArray = [];
+let particles = [];
 
-class Particle{
-constructor(){
-this.x = Math.random()*canvas.width;
-this.y = Math.random()*canvas.height;
-this.size = Math.random()*2+1;
-this.speedY = Math.random()*1+0.5;
-}
-
-update(){
-this.y -= this.speedY;
-if(this.y < 0){
-this.y = canvas.height;
-this.x = Math.random()*canvas.width;
-}
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2,
+    speedY: Math.random() * 0.5 + 0.2
+  });
 }
 
-draw(){
-ctx.fillStyle="rgba(255,255,255,0.5)";
-ctx.beginPath();
-ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-ctx.fill();
-}
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "rgba(255, 150, 200, 0.3)";
+  particles.forEach(p => {
+    p.y -= p.speedY;
+    if (p.y < 0) p.y = canvas.height;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
 }
 
-function init(){
-for(let i=0;i<100;i++){
-particlesArray.push(new Particle());
-}
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-for(let i=0;i<particlesArray.length;i++){
-particlesArray[i].update();
-particlesArray[i].draw();
-}
-requestAnimationFrame(animate);
-}
-
-init();
 animate();
+
+function go(link) {
+  window.open(link, "_blank");
+}
