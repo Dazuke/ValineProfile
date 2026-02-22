@@ -5,34 +5,47 @@
   font-family:'Segoe UI',sans-serif;
 }
 
-html, body{
-  height:100%;
+html, body {
+  height: 100%;
 }
 
-body{
-  background:url("background.jpg") center/cover no-repeat fixed;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:40px 20px;
-  overflow-x:hidden;
+body {
+  background: url("background.jpg") center/cover no-repeat fixed;
+  color: white;
+  overflow-x: hidden;
+  padding: 60px 20px;
+  position: relative;
 }
 
-/* CONTAINER */
-.container{
-  width:100%;
-  max-width:820px;
-  padding:50px 40px;
-  border-radius:24px;
-  background:rgba(25,5,35,0.65);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,120,180,0.25);
+/* PARTICLE FIX */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* CONTAINER CENTER STABIL */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto; /* ini kunci centernya */
+  padding: 50px 40px;
+  border-radius: 24px;
+
+  background: rgba(25,5,35,0.65);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,120,180,0.25);
+
   box-shadow:
     0 60px 120px rgba(0,0,0,0.75),
     0 0 80px rgba(255,120,180,0.12);
-  position:relative;
 }
+
 
 /* HEADER */
 header{
@@ -70,7 +83,34 @@ h1{
   display:block;
   font-size:20px;
 }
+/* avatar*/
+.avatar-wrapper {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
 
+.avatar {
+  width: 180px;
+  transition: 0.3s ease;
+}
+
+.avatar-wrapper:hover .avatar {
+  transform: translateY(-6px) scale(1.04);
+  filter: brightness(1.1);
+}
+
+.avatar-label {
+  display: block;
+  font-size: 12px;
+  margin-top: 8px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.avatar-wrapper:hover .avatar-label {
+  opacity: 1;
+}
 /* ROW SYSTEM (TIDAK DIUBAH STRUKTURNYA) */
 .row{
   display:flex;
@@ -91,6 +131,7 @@ h1{
 
 .row.three{
   justify-content:center;
+  flex-wrap:nowrap;
 }
 
 /* BUTTON */
