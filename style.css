@@ -207,3 +207,15 @@ body::before {
   z-index: -1;
 }
 
+/* FIX CENTER POSITION */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* tambahkan ini */
+  min-height: 100vh;   /* supaya full tinggi layar */
+}
+
+.container {
+  margin: auto;        /* paksa tetap di tengah */
+}
+
