@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d9488">
+  <title>Uang Kas — Sistem Informasi 002</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Uang Kas SI 002">
+      <span class="logo">▤</span>
+      <span><strong>UANG KAS</strong><small>Sistem Informasi 002</small></span>
+    </a>
+    <div class="top-actions">
+      <span id="roleBadge" class="pill">Mode Siswa · Viewer</span>
+      <button id="loginBtn" class="btn">Masuk Bendahara</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <div><p class="eyebrow">DASHBOARD KELAS</p><h1 id="pageTitle">Ringkasan kas kelas</h1>
+        <p id="pageDescription" class="muted">Pantau pembayaran mingguan dan saldo kas secara transparan.</p></div>
+      <label class="month-control">Periode
+        <input id="monthPicker" type="month">
+      </label>
+    </section>
+
+    <nav class="tabs" aria-label="Navigasi utama">
+      <button class="tab active" data-tab="dashboard">▦ <span>Tab</span></button>
+      <button class="tab" data-tab="payment">▣ <span>Payment</span></button>
+      <button class="tab" data-tab="recap">▥ <span>Recap</span></button>
+    </nav>
+
+    <section id="dashboardView" class="view">
+      <div class="metrics">
+        <article class="metric"><div class="metric-label">Saldo total <span>◈</span></div><strong id="totalBalance">Rp0</strong><small>Saldo kas tersedia</small></article>
+        <article class="metric"><div class="metric-label">Saldo bulan lalu <span>↶</span></div><strong id="openingBalance">Rp0</strong><small>Saldo awal periode</small></article>
+        <article class="metric"><div class="metric-label">Iuran bulan ini <span>↗</span></div><strong id="monthIncome">Rp0</strong><small>Uang masuk tercatat</small></article>
+        <article class="metric"><div class="metric-label">Pengeluaran bulan ini <span>↘</span></div><strong id="monthExpense">Rp0</strong><small>Pengeluaran tercatat</small></article>
+      </div>
+
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Pembayaran bulan ini</h2><p class="muted" id="periodCaption">Iuran Rp5.000 per siswa setiap Sabtu.</p></div><strong id="overallCount">0/0</strong></div>
+        <div class="progress"><span id="overallProgress"></span></div>
+        <div class="split muted"><span id="paidSummary">0 sudah bayar</span><span id="unpaidSummary">0 belum bayar</span></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Checklist pembayaran siswa</h2><p class="muted">Kolom otomatis mengikuti jumlah hari Sabtu pada bulan yang dipilih.</p></div>
+          <button id="addStudentBtn" class="btn primary admin-only hidden">＋ Tambah siswa</button></div>
+        <div class="toolbar"><input id="searchStudent" class="field" placeholder="Cari nama siswa…" aria-label="Cari nama siswa">
+          <select id="statusFilter" class="field" aria-label="Filter status"><option value="all">Semua status</option><option value="paid">Sudah lunas bulan ini</option><option value="unpaid">Belum lunas bulan ini</option></select></div>
+        <div class="table-scroll"><table id="paymentTable"><thead></thead><tbody></tbody></table></div>
+        <p class="hint">Siswa hanya bisa melihat. Perubahan checklist hanya tersedia setelah bendahara masuk.</p>
+      </section>
+
+      <div class="two-col">
+        <section class="panel">
+          <div class="panel-heading"><div><h2>Statistik pembayaran</h2><p class="muted">Persentase checklist bulan ini</p></div></div>
+          <div class="donut-layout"><div id="donut" class="donut"><div><strong id="donutPercent">0%</strong><small>terbayar</small></div></div><div><strong id="donutCount">0 dari 0</strong><p class="muted">Status pembayaran mingguan seluruh siswa.</p></div></div>
+        </section>
+        <section class="panel">
+          <div class="panel-heading"><div><h2>Catatan bendahara</h2><p class="muted">Ringkasan kas bulan ini</p></div></div>
+          <div class="summary-row"><span>Total siswa aktif</span><strong id="studentCount">0</strong></div>
+          <div class="summary-row"><span>Target iuran bulan ini</span><strong id="targetIncome">Rp0</strong></div>
+          <div class="summary-row"><span>Selisih target dan masuk</span><strong id="remainingIncome">Rp0</strong></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="paymentView" class="view hidden">
+      <div class="two-col">
+        <section class="panel">
+          <div class="panel-heading"><div><h2>Payment QRIS</h2><p class="muted">Pembayaran iuran mingguan kelas</p></div></div>
+          <div class="qris-box"><p class="eyebrow">NOMINAL PEMBAYARAN</p><strong class="amount">Rp5.000</strong>
+            <div id="qrisPreview" class="qris-preview"><span>▦</span><p>QRIS kelas belum diunggah</p></div>
+            <p id="qrisName" class="muted small">Minta bendahara mengunggah QRIS resmi.</p>
+            <label class="btn primary admin-only hidden" for="qrisInput">＋ Unggah / ganti QRIS</label>
+            <input id="qrisInput" class="hidden" type="file" accept="image/png,image/jpeg,image/webp">
+          </div>
+          <div class="notice">Setelah membayar, simpan bukti transaksi dan hubungi bendahara. Status tidak berubah otomatis hanya dengan memindai QRIS.</div>
+        </section>
+        <section class="panel">
+          <h2>Cara pembayaran</h2>
+          <ol class="steps"><li><strong>Scan QRIS</strong><p class="muted">Buka aplikasi pembayaran yang mendukung QRIS.</p></li>
+            <li><strong>Bayar Rp5.000</strong><p class="muted">Pastikan nominal sesuai iuran mingguan.</p></li>
+            <li><strong>Kirim bukti pembayaran</strong><p class="muted">Tunjukkan bukti kepada bendahara.</p></li>
+            <li><strong>Tunggu konfirmasi</strong><p class="muted">Bendahara akan mencentang status pada tabel.</p></li></ol>
+        </section>
+      </div>
+    </section>
+
+    <section id="recapView" class="view hidden">
+      <div class="metrics">
+        <article class="metric"><div class="metric-label">Total uang masuk <span>↗</span></div><strong id="recapIncome">Rp0</strong><small>Seluruh transaksi masuk</small></article>
+        <article class="metric"><div class="metric-label">Total pengeluaran <span>↘</span></div><strong id="recapExpense">Rp0</strong><small>Seluruh transaksi keluar</small></article>
+        <article class="metric"><div class="metric-label">Saldo akhir <span>◈</span></div><strong id="recapBalance">Rp0</strong><small>Saldo awal + masuk − keluar</small></article>
+        <article class="metric"><div class="metric-label">Checklist terisi <span>✓</span></div><strong id="recapChecks">0</strong><small>Jumlah pembayaran terkonfirmasi</small></article>
+      </div>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Unduh rekap</h2><p class="muted">Pilih periode di bagian atas, lalu ekspor data.</p></div></div>
+        <div class="export-actions"><button id="exportCsv" class="btn primary">⇩ Unduh CSV / Sheet</button><button id="printPdf" class="btn">⇩ Simpan sebagai PDF</button></div>
+        <p class="hint">CSV dapat dibuka di Excel atau diimpor ke Google Sheets. Untuk PDF, pilih “Save as PDF” pada dialog cetak.</p>
+      </section>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Riwayat transaksi</h2><p class="muted">Pembayaran yang dikonfirmasi dan pengeluaran kas.</p></div><button id="addExpenseBtn" class="btn primary admin-only hidden">＋ Catat pengeluaran</button></div>
+        <div class="table-scroll"><table id="transactionTable"><thead><tr><th>Tanggal</th><th>Jenis</th><th>Keterangan</th><th>Nominal</th><th class="admin-only hidden">Aksi</th></tr></thead><tbody></tbody></table></div>
+        <p id="noTransactions" class="empty-state">Belum ada transaksi pada periode ini.</p>
+      </section>
+    </section>
+
+    <footer>UANG KAS · Sistem Informasi 002 <span>Prototype awal — data demo tersimpan di browser ini.</span></footer>
+  </main>
+  <div id="modalRoot"></div><div id="toast" class="toast hidden" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
